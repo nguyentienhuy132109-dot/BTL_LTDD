@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Màu nền cam -->
+    <solid android:color="#FF5722" />
+    <!-- Bo góc tối đa để tạo hình elip/viên thuốc -->
+    <corners android:radius="100dp" />
+</shape>
