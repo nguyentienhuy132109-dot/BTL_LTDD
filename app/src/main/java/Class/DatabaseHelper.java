@@ -14,6 +14,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "BanSach.db";
     private static final int DATABASE_VERSION = 1;
 
+    public static final String LOAI_GIO_HANG = "GIO_HANG";
+    public static final String LOAI_DON_HANG = "DON_HANG";
+
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -68,6 +71,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "soLuong INTEGER," +
                 "FOREIGN KEY(khachHangId) REFERENCES KhachHang(id)," +
                 "FOREIGN KEY(sachId) REFERENCES Sach(id))");
+
+        // Thêm vào onCreate()
+        db.execSQL("CREATE TABLE ThongBao (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "khachHangId INTEGER," +
+                "tieuDe TEXT," +
+                "noiDung TEXT," +
+                "thoiGian TEXT," +
+                "daDoc INTEGER DEFAULT 0," +
+                "loai TEXT)");
 
         // Thêm dữ liệu mẫu
         themDuLieuMau(db);
@@ -392,5 +405,63 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void xoaKhoiGioHang(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete("GioHang", "id=?", new String[]{String.valueOf(id)});
+    }
+
+    // Thêm thông báo mới
+    public void themThongBao(int khachHangId, String tieuDe,
+                             String noiDung, String loai) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("khachHangId", khachHangId);
+        values.put("tieuDe", tieuDe);
+        values.put("noiDung", noiDung);
+        values.put("loai", loai);
+        values.put("daDoc", 0);
+        // Lưu thời gian hiện tại
+        values.put("thoiGian", new java.text.SimpleDateFormat(
+                "dd/MM/yyyy HH:mm", java.util.Locale.getDefault())
+                .format(new java.util.Date()));
+        db.insert("ThongBao", null, values);
+    }
+
+    // Lấy danh sách thông báo
+    public List<ThongBao> getThongBao(int khachHangId) {
+        List<ThongBao> ds = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(
+                "SELECT * FROM ThongBao WHERE khachHangId=? ORDER BY id DESC",
+                new String[]{String.valueOf(khachHangId)});
+        while (cursor.moveToNext()) {
+            ds.add(new ThongBao(
+                    cursor.getInt(0),    // id
+                    cursor.getInt(1),    // khachHangId
+                    cursor.getString(2), // tieuDe
+                    cursor.getString(3), // noiDung
+                    cursor.getString(4), // thoiGian
+                    cursor.getInt(5),    // daDoc
+                    cursor.getString(6)  // loai
+            ));
+        }
+        cursor.close();
+        return ds;
+    }
+
+    // Đánh dấu đã đọc
+    public void danhDauDaDoc(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("daDoc", 1);
+        db.update("ThongBao", values, "id=?", new String[]{String.valueOf(id)});
+    }
+
+    // Đếm thông báo chưa đọc
+    public int demChuaDoc(int khachHangId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(
+                "SELECT COUNT(*) FROM ThongBao WHERE khachHangId=? AND daDoc=0",
+                new String[]{String.valueOf(khachHangId)});
+        if (cursor.moveToFirst()) return cursor.getInt(0);
+        cursor.close();
+        return 0;
     }
 }

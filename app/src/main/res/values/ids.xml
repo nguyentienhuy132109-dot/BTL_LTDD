@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="thong_bao" type="id" />
+    <item name="tvTieuDe" type="id" />
+    <item name="layoutTrong" type="id" />
+    <item name="tvTrong" type="id" />
+    <item name="rvThongBao" type="id" />
+    <item name="viewChuaDoc" type="id" />
+    <item name="imgIconThongBao" type="id" />
+    <item name="tvTieuDeThongBao" type="id" />
+    <item name="tvNoiDungThongBao" type="id" />
+    <item name="tvThoiGianThongBao" type="id" />
+</resources>
