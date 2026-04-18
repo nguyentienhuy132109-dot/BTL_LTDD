@@ -24,13 +24,14 @@
 
     <!-- 2. SCROLLVIEW CHỨA DANH SÁCH SẢN PHẨM -->
     <!-- layout_height="0dp" để nó chiếm toàn bộ không gian giữa Tiêu đề và BottomNav -->
-    <ScrollView
-        android:id="@+id/scrollView"
+    <!-- Thay ScrollView + LinearLayout bằng RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvGioHang"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:fillViewport="true"
+        android:padding="12dp"
         app:layout_constraintTop_toBottomOf="@id/tvTitle"
-        app:layout_constraintBottom_toTopOf="@id/bottom_navigation">
+        app:layout_constraintBottom_toTopOf="@id/layoutCheckout">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -163,7 +164,7 @@
             <!-- Bạn có thể Copy paste thẻ CardView trên xuống đây để test cuộn -->
 
         </LinearLayout>
-    </ScrollView>
+    </androidx.recyclerview.widget.RecyclerView>
 
     <!-- 3. THANH TỔNG THÀNH TIỀN VÀ NÚT THANH TOÁN -->
     <androidx.constraintlayout.widget.ConstraintLayout

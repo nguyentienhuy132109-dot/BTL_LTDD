@@ -60,6 +60,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "FOREIGN KEY(donHangId) REFERENCES DonHang(id)," +
                 "FOREIGN KEY(sachId) REFERENCES Sach(id))");
 
+        // Thêm vào onCreate() — tạo bảng GioHang
+        db.execSQL("CREATE TABLE GioHang (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "khachHangId INTEGER," +
+                "sachId INTEGER," +
+                "soLuong INTEGER," +
+                "FOREIGN KEY(khachHangId) REFERENCES KhachHang(id)," +
+                "FOREIGN KEY(sachId) REFERENCES Sach(id))");
+
         // Thêm dữ liệu mẫu
         themDuLieuMau(db);
     }
@@ -301,5 +310,87 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         return "";
+    }
+
+    public List<Sach> timKiemSach(String tuKhoa) {
+        List<Sach> dsSach = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(
+                "SELECT * FROM Sach WHERE ten LIKE ?",
+                new String[]{"%" + tuKhoa + "%"});
+        while (cursor.moveToNext()) {
+            dsSach.add(new Sach(
+                    cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3),
+                    cursor.getString(5),
+                    cursor.getString(6),
+                    cursor.getDouble(4)
+            ));
+        }
+        cursor.close();
+        return dsSach;
+    }
+
+    public void themVaoGioHang(int khachHangId, int sachId, int soLuong) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(
+                "SELECT id, soLuong FROM GioHang WHERE khachHangId=? AND sachId=?",
+                new String[]{String.valueOf(khachHangId), String.valueOf(sachId)});
+
+        if (cursor.moveToFirst()) {
+            // Đã có → cộng thêm số lượng
+            int soLuongCu = cursor.getInt(1);
+            int idRow = cursor.getInt(0);
+            ContentValues values = new ContentValues();
+            values.put("soLuong", soLuongCu + soLuong);
+            db.update("GioHang", values, "id=?", new String[]{String.valueOf(idRow)});
+        } else {
+            // Chưa có → thêm mới
+            ContentValues values = new ContentValues();
+            values.put("khachHangId", khachHangId);
+            values.put("sachId", sachId);
+            values.put("soLuong", soLuong);
+            db.insert("GioHang", null, values);
+        }
+        cursor.close();
+    }
+
+    // Lấy danh sách giỏ hàng kèm thông tin sách
+    public List<GioHangItem> getGioHang(int khachHangId) {
+        List<GioHangItem> ds = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(
+                "SELECT gh.id, gh.sachId, s.ten, s.hinhAnh, s.gia, gh.soLuong " +
+                        "FROM GioHang gh JOIN Sach s ON gh.sachId = s.id " +
+                        "WHERE gh.khachHangId = ?",
+                new String[]{String.valueOf(khachHangId)});
+        while (cursor.moveToNext()) {
+            ds.add(new GioHangItem(
+                    cursor.getInt(0),    // id
+                    cursor.getInt(1),    // sachId
+                    cursor.getString(2), // tenSach
+                    cursor.getString(3), // hinhAnh
+                    cursor.getDouble(4), // gia
+                    cursor.getInt(5)     // soLuong
+            ));
+        }
+        cursor.close();
+        return ds;
+    }
+
+    // Cập nhật số lượng
+    public void capNhatSoLuong(int id, int soLuong) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("soLuong", soLuong);
+        db.update("GioHang", values, "id=?", new String[]{String.valueOf(id)});
+    }
+
+    // Xóa 1 sản phẩm khỏi giỏ
+    public void xoaKhoiGioHang(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("GioHang", "id=?", new String[]{String.valueOf(id)});
     }
 }
