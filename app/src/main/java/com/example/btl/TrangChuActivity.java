@@ -161,7 +161,7 @@ public class TrangChuActivity extends AppCompatActivity {
 
             // Click vào thẻ → mở chi tiết sản phẩm
             cardView.setOnClickListener(v -> {
-                Intent intent = new Intent(this, TrangChuActivity.class);
+                Intent intent = new Intent(this, ThongTinSanPhamActivity.class);
                 intent.putExtra("SACH_ID", sach.getId());
                 startActivity(intent);
             });
@@ -178,10 +178,10 @@ public class TrangChuActivity extends AppCompatActivity {
                 // Đang ở trang chủ
                 return true;
             } else if (id == R.id.nav_cart) {
-               // startActivity(new Intent(this, GioHangActivity.class));
+                startActivity(new Intent(this, GioHangActivity.class));
                 return true;
             } else if (id == R.id.nav_notifications) {
-               // startActivity(new Intent(this, ThongBaoActivity.class));
+                startActivity(new Intent(this, ThongBaoActivity.class));
                 return true;
             } else if (id == R.id.nav_profile) {
                // startActivity(new Intent(this, ThongTinTaiKhoanActivity.class));

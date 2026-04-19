@@ -11,15 +11,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BTL">
+
+        <!-- Màn hình chính -->
         <activity
             android:name=".TrangChuActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+        <!-- Các Activity còn lại -->
+        <activity android:name=".ThongTinSanPhamActivity"/>
+        <activity android:name=".GioHangActivity"/>
+        <activity android:name=".ThongBaoActivity"/>
+<!--        <activity android:name=".ThongTinTaiKhoanActivity"/> -->
+
+    </application>
 </manifest>

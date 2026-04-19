@@ -12,7 +12,7 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "BanSach.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     public static final String LOAI_GIO_HANG = "GIO_HANG";
     public static final String LOAI_DON_HANG = "DON_HANG";
@@ -105,36 +105,186 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "('Tran Thi B', 'b@gmail.com', '123456', '0912345678')");
 
         // ---- SÁCH ----
-        // ⚠️ Điền tên file ảnh vào chỗ trống (không cần đuôi .png/.jpg)
-        db.execSQL("INSERT INTO Sach (ten, tacGia, theLoai, gia, moTa, hinhAnh) VALUES " +
-                "('Dế Mèn Phiêu Lưu Ký', 'Tô Hoài', 'Thiếu nhi', 85000, " +
-                "'Truyện thiếu nhi kinh điển của văn học Việt Nam', " +
-                "'          ')");  // ← điền tên drawable vào đây
 
-        db.execSQL("INSERT INTO Sach (ten, tacGia, theLoai, gia, moTa, hinhAnh) VALUES " +
-                "('Sherlock Holmes', 'Arthur Conan Doyle', 'Trinh thám', 120000, " +
-                "'Tuyển tập truyện trinh thám nổi tiếng thế giới', " +
-                "'          ')");  // ← điền tên drawable vào đây
+        // 1. Trinh thám
+        db.execSQL("INSERT INTO Sach (ten, tacGia, theLoai, gia, moTa, hinhAnh) VALUES (" +
+                "'Sherlock Holmes - Tuyển Tập'," +
+                "'Arthur Conan Doyle'," +
+                "'Trinh thám'," +
+                "120000," +
+                "'Tuyển tập đầy đủ những vụ án huyền thoại của thám tử lừng danh " +
+                "Sherlock Holmes và trợ lý Watson. Kinh điển của dòng văn học trinh thám thế giới.'," +
+                "'sherlock')");
 
-        db.execSQL("INSERT INTO Sach (ten, tacGia, theLoai, gia, moTa, hinhAnh) VALUES " +
-                "('Lịch Sử Thế Giới', 'Nhiều tác giả', 'Lịch sử', 210000, " +
-                "'Tổng hợp lịch sử thế giới từ cổ đại đến hiện đại', " +
-                "'          ')");  // ← điền tên drawable vào đây
+        // 2. Thiếu nhi
+        db.execSQL("INSERT INTO Sach (ten, tacGia, theLoai, gia, moTa, hinhAnh) VALUES (" +
+                "'Dế Mèn Phiêu Lưu Ký'," +
+                "'Tô Hoài'," +
+                "'Thiếu nhi'," +
+                "85000," +
+                "'Cuộc phiêu lưu kỳ thú của chú dế mèn dũng cảm qua nhiều vùng đất lạ. " +
+                "Tác phẩm kinh điển của văn học thiếu nhi Việt Nam.'," +
+                "'de_men')");
 
-        db.execSQL("INSERT INTO Sach (ten, tacGia, theLoai, gia, moTa, hinhAnh) VALUES " +
-                "('Kinh Doanh 4.0', 'Nguyen Van B', 'Kinh doanh', 155000, " +
-                "'Kinh doanh trong thời đại công nghệ số', " +
-                "'          ')");  // ← điền tên drawable vào đây
+        // 3. Tiểu thuyết
+        db.execSQL("INSERT INTO Sach (ten, tacGia, theLoai, gia, moTa, hinhAnh) VALUES (" +
+                "'Nhà Giả Kim'," +
+                "'Paulo Coelho'," +
+                "'Tiểu thuyết'," +
+                "95000," +
+                "'Hành trình của cậu bé chăn cừu Santiago đi tìm kho báu và khám phá " +
+                "ý nghĩa cuộc sống. Cuốn sách truyền cảm hứng bán chạy nhất mọi thời đại.'," +
+                "'nha_gia_kim')");
 
-        db.execSQL("INSERT INTO Sach (ten, tacGia, theLoai, gia, moTa, hinhAnh) VALUES " +
-                "('Nhà Giả Kim', 'Paulo Coelho', 'Tiểu thuyết', 95000, " +
-                "'Hành trình tìm kiếm kho báu và ý nghĩa cuộc sống', " +
-                "'          ')");  // ← điền tên drawable vào đây
+        // 4. Kinh doanh
+        db.execSQL("INSERT INTO Sach (ten, tacGia, theLoai, gia, moTa, hinhAnh) VALUES (" +
+                "'Nghĩ Giàu Làm Giàu'," +
+                "'Napoleon Hill'," +
+                "'Kinh doanh'," +
+                "145000," +
+                "'Bí quyết làm giàu từ việc nghiên cứu 500 triệu phú thành công nhất " +
+                "nước Mỹ. Cuốn sách kinh doanh kinh điển được dịch ra hơn 70 ngôn ngữ.'," +
+                "'nghi_giau_lam_giau')");
 
-        db.execSQL("INSERT INTO Sach (ten, tacGia, theLoai, gia, moTa, hinhAnh) VALUES " +
-                "('Đắc Nhân Tâm', 'Dale Carnegie', 'Kỹ năng sống', 110000, " +
-                "'Nghệ thuật thu phục lòng người', " +
-                "'          ')");  // ← điền tên drawable vào đây
+        // 5. Kinh dị
+        db.execSQL("INSERT INTO Sach (ten, tacGia, theLoai, gia, moTa, hinhAnh) VALUES (" +
+                "'Nó - It'," +
+                "'Stephen King'," +
+                "'Kinh dị'," +
+                "210000," +
+                "'Câu chuyện về nhóm trẻ em tại thị trấn Derry phải đối mặt với thực thể " +
+                "quái dị mang hình dạng chú hề Pennywise đáng sợ. Kiệt tác kinh dị của Stephen King.'," +
+                "'no_it')");
+
+        // 6. Lịch sử
+        db.execSQL("INSERT INTO Sach (ten, tacGia, theLoai, gia, moTa, hinhAnh) VALUES (" +
+                "'Lược Sử Loài Người'," +
+                "'Yuval Noah Harari'," +
+                "'Lịch sử'," +
+                "185000," +
+                "'Hành trình 70.000 năm của loài người từ thời kỳ đồ đá đến kỷ nguyên " +
+                "hiện đại. Cuốn sách lịch sử bán chạy nhất toàn cầu với góc nhìn hoàn toàn mới.'," +
+                "'luoc_su_loai_nguoi')");
+
+        // 7. Khoa học
+        db.execSQL("INSERT INTO Sach (ten, tacGia, theLoai, gia, moTa, hinhAnh) VALUES (" +
+                "'Vũ Trụ Trong Vỏ Hạt Dẻ'," +
+                "'Stephen Hawking'," +
+                "'Khoa học'," +
+                "175000," +
+                "'Stephen Hawking giải thích những lý thuyết vật lý phức tạp nhất về " +
+                "vũ trụ bằng ngôn ngữ dễ hiểu. Từ thuyết tương đối đến cơ học lượng tử.'," +
+                "'vu_tru_trong_vo_hat_de')");
+
+        // 8. Văn học
+        db.execSQL("INSERT INTO Sach (ten, tacGia, theLoai, gia, moTa, hinhAnh) VALUES (" +
+                "'Truyện Kiều'," +
+                "'Nguyễn Du'," +
+                "'Văn học'," +
+                "65000," +
+                "'Kiệt tác văn học chữ Nôm của đại thi hào Nguyễn Du kể về cuộc đời " +
+                "đầy bi kịch của Thúy Kiều. Đỉnh cao của văn học cổ điển Việt Nam.'," +
+                "'truyen_kieu')");
+
+        // 9. Ngoại ngữ
+        db.execSQL("INSERT INTO Sach (ten, tacGia, theLoai, gia, moTa, hinhAnh) VALUES (" +
+                "'English Grammar In Use'," +
+                "'Raymond Murphy'," +
+                "'Ngoại ngữ'," +
+                "195000," +
+                "'Cuốn sách ngữ pháp tiếng Anh toàn diện và phổ biến nhất thế giới " +
+                "với hơn 100 bài học kèm bài tập thực hành. Phù hợp cho trình độ trung cấp.'," +
+                "'english_grammar_in_use')");
+
+        // 1. Trinh thám - bản ghi 2
+        db.execSQL("INSERT INTO Sach (ten, tacGia, theLoai, gia, moTa, hinhAnh) VALUES (" +
+                "'Agatha Christie - Án Mạng Trên Sông Nile'," +
+                "'Agatha Christie'," +
+                "'Trinh thám'," +
+                "110000," +
+                "'Thám tử Hercule Poirot phải điều tra vụ án mạng xảy ra trên con tàu " +
+                "du lịch sang trọng giữa dòng sông Nile huyền bí của Ai Cập.'," +
+                "'an_mang_tren_song_nile')");
+
+// 2. Thiếu nhi - bản ghi 2
+        db.execSQL("INSERT INTO Sach (ten, tacGia, theLoai, gia, moTa, hinhAnh) VALUES (" +
+                "'Hoàng Tử Bé'," +
+                "'Antoine de Saint-Exupéry'," +
+                "'Thiếu nhi'," +
+                "75000," +
+                "'Câu chuyện cảm động về cậu hoàng tử bé từ hành tinh nhỏ du hành " +
+                "qua các hành tinh và học về tình yêu, tình bạn và ý nghĩa cuộc sống.'," +
+                "'hoang_tu_be')");
+
+// 3. Tiểu thuyết - bản ghi 2
+        db.execSQL("INSERT INTO Sach (ten, tacGia, theLoai, gia, moTa, hinhAnh) VALUES (" +
+                "'Bố Già'," +
+                "'Mario Puzo'," +
+                "'Tiểu thuyết'," +
+                "135000," +
+                "'Câu chuyện về gia tộc mafia Corleone quyền lực nhất nước Mỹ. " +
+                "Kiệt tác văn học về quyền lực, lòng trung thành và sự phản bội trong thế giới ngầm.'," +
+                "'bo_gia')");
+
+// 4. Kinh doanh - bản ghi 2
+        db.execSQL("INSERT INTO Sach (ten, tacGia, theLoai, gia, moTa, hinhAnh) VALUES (" +
+                "'Khởi Nghiệp Tinh Gọn'," +
+                "'Eric Ries'," +
+                "'Kinh doanh'," +
+                "160000," +
+                "'Phương pháp khởi nghiệp hiện đại giúp các startup xây dựng sản phẩm " +
+                "nhanh hơn, kiểm tra ý tưởng sớm hơn và tránh lãng phí nguồn lực.'," +
+                "'khoi_nghiep_tinh_gon')");
+
+// 5. Kinh dị - bản ghi 2
+        db.execSQL("INSERT INTO Sach (ten, tacGia, theLoai, gia, moTa, hinhAnh) VALUES (" +
+                "'Căn Phòng Kín'," +
+                "'Keigo Higashino'," +
+                "'Kinh dị'," +
+                "125000," +
+                "'Một vụ án bí ẩn xảy ra trong căn phòng khóa kín không lối thoát. " +
+                "Thám tử tài ba phải tìm ra sự thật đằng sau những bí ẩn không thể lý giải.'," +
+                "'can_phong_kin')");
+
+// 6. Lịch sử - bản ghi 2
+        db.execSQL("INSERT INTO Sach (ten, tacGia, theLoai, gia, moTa, hinhAnh) VALUES (" +
+                "'Đất Rừng Phương Nam'," +
+                "'Đoàn Giỏi'," +
+                "'Lịch sử'," +
+                "79000," +
+                "'Câu chuyện về cậu bé An lưu lạc ở vùng đất phương Nam hoang dã " +
+                "thời kháng chiến chống Pháp. Bức tranh sinh động về thiên nhiên và con người Nam Bộ.'," +
+                "'dat_rung_phuong_nam')");
+
+// 7. Khoa học - bản ghi 2
+        db.execSQL("INSERT INTO Sach (ten, tacGia, theLoai, gia, moTa, hinhAnh) VALUES (" +
+                "'Sapiens - Lược Sử Tư Tưởng'," +
+                "'Yuval Noah Harari'," +
+                "'Khoa học'," +
+                "165000," +
+                "'Khám phá cách tư duy của loài người đã định hình nền văn minh qua " +
+                "các cuộc cách mạng nhận thức, nông nghiệp và khoa học trong suốt lịch sử.'," +
+                "'sapiens_luoc_su_tu_tuong')");
+
+// 8. Văn học - bản ghi 2
+        db.execSQL("INSERT INTO Sach (ten, tacGia, theLoai, gia, moTa, hinhAnh) VALUES (" +
+                "'Số Đỏ'," +
+                "'Vũ Trọng Phụng'," +
+                "'Văn học'," +
+                "70000," +
+                "'Tiểu thuyết trào phúng kinh điển của văn học hiện thực Việt Nam. " +
+                "Câu chuyện về Xuân Tóc Đỏ từ kẻ bần hàn leo lên đỉnh cao xã hội thượng lưu.'," +
+                "'so_do')");
+
+// 9. Ngoại ngữ - bản ghi 2
+        db.execSQL("INSERT INTO Sach (ten, tacGia, theLoai, gia, moTa, hinhAnh) VALUES (" +
+                "'Tiếng Nhật Minna No Nihongo'," +
+                "'3A Corporation'," +
+                "'Ngoại ngữ'," +
+                "220000," +
+                "'Giáo trình tiếng Nhật chuẩn quốc tế được sử dụng rộng rãi nhất tại " +
+                "Việt Nam và thế giới. Phù hợp cho người mới bắt đầu học tiếng Nhật.'," +
+                "'minna_no_nihongo')");
     }
 
     // ==================== KHÁCH HÀNG ====================

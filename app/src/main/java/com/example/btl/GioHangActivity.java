@@ -21,6 +21,7 @@ import Class.DatabaseHelper;
 import Class.GioHangItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GioHangActivity extends AppCompatActivity {
@@ -59,6 +60,7 @@ public class GioHangActivity extends AppCompatActivity {
         taiGioHang();
 
         // 2. Nút thanh toán
+// Sửa btnCheckout
         btnCheckout.setOnClickListener(v -> {
             List<GioHangItem> dsChon = adapter.getDsChon();
             if (dsChon.isEmpty()) {
@@ -66,16 +68,35 @@ public class GioHangActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
                 return;
             }
-            // Tính tổng tiền các sản phẩm được chọn
+
+            // Tính tổng tiền
             double tongTien = 0;
             for (GioHangItem item : dsChon) tongTien += item.getThanhTien();
 
-            Intent intent = new Intent(this, ThanhToanActivity.class);
-            intent.putExtra("TONG_TIEN", tongTien);
-            intent.putExtra("KHACH_HANG_ID", khachHangId);
-            startActivity(intent);
-        });
+            // Chuyển sang định dạng {sachId, soLuong}
+            List<int[]> dsSach = new ArrayList<>();
+            for (GioHangItem item : dsChon) {
+                dsSach.add(new int[]{item.getSachId(), item.getSoLuong()});
+            }
 
+            DatHangDialog dialog = new DatHangDialog(
+                    this,
+                    khachHangId,
+                    tongTien,
+                    dsSach,
+                    (donHang, ds) -> {
+                        // Xóa các sản phẩm đã mua khỏi giỏ hàng
+                        for (GioHangItem item : dsChon) {
+                            db.xoaKhoiGioHang(item.getId());
+                        }
+                        // Về trang chủ
+                        Intent intent = new Intent(this, TrangChuActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                    }
+            );
+            dialog.show();
+        });
         // 3. Bottom navigation
         setupBottomNav();
     }
@@ -138,7 +159,7 @@ public class GioHangActivity extends AppCompatActivity {
                 startActivity(new Intent(this, ThongBaoActivity.class));
                 return true;
             } else if (id == R.id.nav_profile) {
-                startActivity(new Intent(this, ThongTinTaiKhoanActivity.class));
+                // startActivity(new Intent(this, ThongTinTaiKhoanActivity.class));
                 return true;
             }
             return false;

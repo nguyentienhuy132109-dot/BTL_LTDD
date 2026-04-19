@@ -60,27 +60,23 @@ public class ThongBaoActivity extends AppCompatActivity {
         dsThongBao = db.getThongBao(khachHangId);
 
         RecyclerView rvThongBao = findViewById(R.id.rvThongBao);
-        TextView tvTrong = findViewById(R.id.tvTrong);
+        View layoutTrong = findViewById(R.id.layoutTrong); // ← sửa từ tvTrong
 
         if (dsThongBao.isEmpty()) {
-            tvTrong.setVisibility(View.VISIBLE);
+            layoutTrong.setVisibility(View.VISIBLE); // ← sửa
             rvThongBao.setVisibility(View.GONE);
         } else {
-            tvTrong.setVisibility(View.GONE);
+            layoutTrong.setVisibility(View.GONE);    // ← sửa
             rvThongBao.setVisibility(View.VISIBLE);
 
             rvThongBao.setLayoutManager(new LinearLayoutManager(this));
             adapter = new ThongBaoAdapter(dsThongBao, thongBao -> {
-                // Click vào thông báo → đánh dấu đã đọc
                 db.danhDauDaDoc(thongBao.getId());
                 thongBao.setDaDoc(1);
                 adapter.notifyDataSetChanged();
 
-                // Điều hướng theo loại thông báo
                 if (thongBao.getLoai().equals(DatabaseHelper.LOAI_GIO_HANG)) {
                     startActivity(new Intent(this, GioHangActivity.class));
-                } else if (thongBao.getLoai().equals(DatabaseHelper.LOAI_DON_HANG)) {
-                    startActivity(new Intent(this, LichSuDonHangActivity.class));
                 }
             });
             rvThongBao.setAdapter(adapter);
@@ -101,7 +97,7 @@ public class ThongBaoActivity extends AppCompatActivity {
             } else if (id == R.id.nav_notifications) {
                 return true;
             } else if (id == R.id.nav_profile) {
-                startActivity(new Intent(this, ThongTinTaiKhoanActivity.class));
+               // startActivity(new Intent(this, ThongTinTaiKhoanActivity.class));
                 return true;
             }
             return false;

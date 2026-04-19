@@ -19,9 +19,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import Class.DatabaseHelper;
 import Class.Sach;
+import Class.KhachHang;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ThongTinSanPhamActivity extends AppCompatActivity {
@@ -29,6 +31,8 @@ public class ThongTinSanPhamActivity extends AppCompatActivity {
     DatabaseHelper db;
     Sach sachHienTai;
     int soLuong = 1;
+
+    int khachHangId = 1;
 
     // Views - thông tin sách
     ImageView imgProductLarge;
@@ -189,14 +193,40 @@ public class ThongTinSanPhamActivity extends AppCompatActivity {
     // ==================== NÚT HÀNH ĐỘNG ====================
     private void setupNutHanhDong() {
         btnAddToCart.setOnClickListener(v -> {
-            // TODO: Thay 1 bằng ID khách hàng đang đăng nhập (lưu trong SharedPreferences)
             int khachHangId = 1;
             db.themVaoGioHang(khachHangId, sachHienTai.getId(), soLuong);
-            Toast.makeText(this,
-                    "Đã thêm " + soLuong + " cuốn \"" + sachHienTai.getTen() + "\" vào giỏ!",
+
+            // ← Phải có dòng này mới tạo thông báo
+            db.themThongBao(khachHangId,
+                    "Thêm vào giỏ hàng thành công!",
+                    "Bạn vừa thêm " + soLuong + " cuốn \""
+                            + sachHienTai.getTen() + "\" vào giỏ hàng.",
+                    DatabaseHelper.LOAI_GIO_HANG);
+
+            Toast.makeText(this, "Đã thêm vào giỏ hàng!",
                     Toast.LENGTH_SHORT).show();
         });
 
+        // Sửa btnBuyNow
+        btnBuyNow.setOnClickListener(v -> {
+            // Tạo danh sách sách {sachId, soLuong}
+            List<int[]> dsSach = new ArrayList<>();
+            dsSach.add(new int[]{sachHienTai.getId(), soLuong});
+
+            DatHangDialog dialog = new DatHangDialog(
+                    this,
+                    khachHangId,                    // ID khách hàng
+                    sachHienTai.getGia() * soLuong, // tổng tiền
+                    dsSach,
+                    (donHang, ds) -> {
+                        // Đặt hàng thành công → về trang chủ
+                        Intent intent = new Intent(this, TrangChuActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                    }
+            );
+            dialog.show();
+        });
     }
 
     private void setupBottomNav() {
@@ -215,7 +245,7 @@ public class ThongTinSanPhamActivity extends AppCompatActivity {
                 startActivity(new Intent(this, ThongBaoActivity.class));
                 return true;
             } else if (id == R.id.nav_profile) {
-                startActivity(new Intent(this, ThongTinTaiKhoanActivity.class));
+               // startActivity(new Intent(this, ThongTinTaiKhoanActivity.class));
                 return true;
             }
             return false;
