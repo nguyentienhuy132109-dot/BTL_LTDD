@@ -1,6 +1,7 @@
 package com.example.btl;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,12 +36,19 @@ public class GioHangActivity extends AppCompatActivity {
     BottomNavigationView bottomNav;
 
     // TODO: Thay bằng ID khách đăng nhập thực tế
-    int khachHangId = 1;
+    int khachHangId ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gio_hang);
+        SharedPreferences pref = getSharedPreferences("USER_DATA", MODE_PRIVATE);
+        khachHangId = pref.getInt("userId", -1);
+        if (khachHangId == -1) {
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+            return;
+        }
 
         ViewCompat.setOnApplyWindowInsetsListener(
                 findViewById(R.id.gio_hang), (v, insets) -> {

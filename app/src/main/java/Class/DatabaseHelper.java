@@ -12,7 +12,7 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "BanSach.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     public static final String LOAI_GIO_HANG = "GIO_HANG";
     public static final String LOAI_DON_HANG = "DON_HANG";
@@ -86,10 +86,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         themDuLieuMau(db);
     }
 
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS ChiTietDonHang");
         db.execSQL("DROP TABLE IF EXISTS DonHang");
+        db.execSQL("DROP TABLE IF EXISTS GioHang");    // ← thêm
+        db.execSQL("DROP TABLE IF EXISTS ThongBao");   // ← thêm
         db.execSQL("DROP TABLE IF EXISTS Sach");
         db.execSQL("DROP TABLE IF EXISTS KhachHang");
         onCreate(db);

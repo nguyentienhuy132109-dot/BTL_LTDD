@@ -1,7 +1,10 @@
 package com.example.btl;
 
 import android.content.Intent;
+<<<<<<< HEAD
 import android.content.SharedPreferences;
+=======
+>>>>>>> add8799f82b5f791fc382c6ee8100e86bcd7a293
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,13 +29,18 @@ public class ThongBaoActivity extends AppCompatActivity {
     DatabaseHelper db;
     List<ThongBao> dsThongBao;
     ThongBaoAdapter adapter;
+<<<<<<< HEAD
     int khachHangId;
+=======
+    int khachHangId = 1; // TODO: thay bằng ID thực
+>>>>>>> add8799f82b5f791fc382c6ee8100e86bcd7a293
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.thong_bao);
 
+<<<<<<< HEAD
         // Lấy userId thực từ session
         SharedPreferences pref = getSharedPreferences("USER_DATA", MODE_PRIVATE);
         khachHangId = pref.getInt("userId", -1);
@@ -43,6 +51,8 @@ public class ThongBaoActivity extends AppCompatActivity {
             return;
         }
 
+=======
+>>>>>>> add8799f82b5f791fc382c6ee8100e86bcd7a293
         ViewCompat.setOnApplyWindowInsetsListener(
                 findViewById(R.id.thong_bao), (v, insets) -> {
                     androidx.core.graphics.Insets systemBars =
@@ -71,6 +81,7 @@ public class ThongBaoActivity extends AppCompatActivity {
         dsThongBao = db.getThongBao(khachHangId);
 
         RecyclerView rvThongBao = findViewById(R.id.rvThongBao);
+<<<<<<< HEAD
         View layoutTrong = findViewById(R.id.layoutTrong);
 
         if (dsThongBao.isEmpty()) {
@@ -78,6 +89,15 @@ public class ThongBaoActivity extends AppCompatActivity {
             rvThongBao.setVisibility(View.GONE);
         } else {
             layoutTrong.setVisibility(View.GONE);
+=======
+        View layoutTrong = findViewById(R.id.layoutTrong); // ← sửa từ tvTrong
+
+        if (dsThongBao.isEmpty()) {
+            layoutTrong.setVisibility(View.VISIBLE); // ← sửa
+            rvThongBao.setVisibility(View.GONE);
+        } else {
+            layoutTrong.setVisibility(View.GONE);    // ← sửa
+>>>>>>> add8799f82b5f791fc382c6ee8100e86bcd7a293
             rvThongBao.setVisibility(View.VISIBLE);
 
             rvThongBao.setLayoutManager(new LinearLayoutManager(this));
@@ -108,13 +128,21 @@ public class ThongBaoActivity extends AppCompatActivity {
             } else if (id == R.id.nav_notifications) {
                 return true;
             } else if (id == R.id.nav_profile) {
+<<<<<<< HEAD
                 startActivity(new Intent(this, ThongTinTaiKhoanActivity.class));
+=======
+               // startActivity(new Intent(this, ThongTinTaiKhoanActivity.class));
+>>>>>>> add8799f82b5f791fc382c6ee8100e86bcd7a293
                 return true;
             }
             return false;
         });
     }
 
+<<<<<<< HEAD
+=======
+    // ==================== ADAPTER ====================
+>>>>>>> add8799f82b5f791fc382c6ee8100e86bcd7a293
     static class ThongBaoAdapter extends
             RecyclerView.Adapter<ThongBaoAdapter.ViewHolder> {
 
@@ -158,6 +186,10 @@ public class ThongBaoActivity extends AppCompatActivity {
             holder.tvNoiDung.setText(tb.getNoiDung());
             holder.tvThoiGian.setText(tb.getThoiGian());
 
+<<<<<<< HEAD
+=======
+            // Chưa đọc → nền xanh nhạt + chấm đỏ
+>>>>>>> add8799f82b5f791fc382c6ee8100e86bcd7a293
             if (!tb.isDaDoc()) {
                 holder.itemView.setBackgroundColor(0xFFE3F2FD);
                 holder.viewChuaDoc.setVisibility(View.VISIBLE);
@@ -166,6 +198,10 @@ public class ThongBaoActivity extends AppCompatActivity {
                 holder.viewChuaDoc.setVisibility(View.GONE);
             }
 
+<<<<<<< HEAD
+=======
+            // Icon theo loại
+>>>>>>> add8799f82b5f791fc382c6ee8100e86bcd7a293
             if (tb.getLoai().equals(DatabaseHelper.LOAI_GIO_HANG)) {
                 holder.imgIcon.setImageResource(
                         android.R.drawable.ic_menu_add);

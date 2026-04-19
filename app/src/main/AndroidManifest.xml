@@ -12,9 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BTL">
 
+<<<<<<< HEAD
         <!-- Màn hình Đăng nhập là màn hình khởi đầu -->
         <activity
             android:name=".LoginActivity"
+=======
+        <!-- Màn hình chính -->
+        <activity
+            android:name=".TrangChuActivity"
+>>>>>>> add8799f82b5f791fc382c6ee8100e86bcd7a293
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,12 +28,20 @@
             </intent-filter>
         </activity>
 
+<<<<<<< HEAD
         <activity android:name=".RegisterActivity"/>
         <activity android:name=".TrangChuActivity"/>
         <activity android:name=".ThongTinSanPhamActivity"/>
         <activity android:name=".GioHangActivity"/>
         <activity android:name=".ThongBaoActivity"/>
         <activity android:name=".ThongTinTaiKhoanActivity"/>
+=======
+        <!-- Các Activity còn lại -->
+        <activity android:name=".ThongTinSanPhamActivity"/>
+        <activity android:name=".GioHangActivity"/>
+        <activity android:name=".ThongBaoActivity"/>
+<!--        <activity android:name=".ThongTinTaiKhoanActivity"/> -->
+>>>>>>> add8799f82b5f791fc382c6ee8100e86bcd7a293
 
     </application>
 </manifest>

@@ -18,7 +18,6 @@ public class RegisterActivity extends AppCompatActivity {
     DatabaseHelper db;
     TextInputEditText edtFullName, edtEmail, edtPhone, edtPassword, edtConfirmPassword;
     Button btnRegister;
-    ImageButton btnBack;
     TextView tvLogin;
 
     @Override
@@ -35,10 +34,8 @@ public class RegisterActivity extends AppCompatActivity {
         edtPassword = findViewById(R.id.edtPassword);
         edtConfirmPassword = findViewById(R.id.edtConfirmPassword);
         btnRegister = findViewById(R.id.btnRegister);
-        btnBack = findViewById(R.id.btnBack);
         tvLogin = findViewById(R.id.tvLogin);
 
-        btnBack.setOnClickListener(v -> finish());
         tvLogin.setOnClickListener(v -> finish());
 
         btnRegister.setOnClickListener(v -> {
