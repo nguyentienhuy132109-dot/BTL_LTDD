@@ -1,0 +1,124 @@
+<!-- THẺ SẢN PHẨM NÂNG CẤP: TO HƠN, CHUYÊN NGHIỆP HƠN -->
+<com.google.android.material.card.MaterialCardView android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    android:layout_marginHorizontal="2dp"
+    app:cardCornerRadius="15dp"
+    app:cardElevation="4dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="#F0F0F0"
+    layout_height=""
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    layout_width=""
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Ô tích chọn: Căn giữa theo chiều dọc của thẻ -->
+        <CheckBox
+            android:id="@+id/cbSelect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="#FF5722"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Ảnh mini sản phẩm: Tăng lên 100dp để trông to và rõ hơn -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="12dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cbSelect"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imgProduct"
+                android:layout_width="wrap_content"
+                android:layout_height="117dp"
+                android:background="#F5F5F5"
+                android:scaleType="fitCenter"
+                android:src="@drawable/de_men"/>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Tên sản phẩm: Chữ to hơn (18sp) và Bold -->
+        <TextView
+            android:id="@+id/tvProductName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="Dế mèn phiêu lưu ký"
+            android:textColor="#1A1A1A"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cardImage"
+            app:layout_constraintTop_toTopOf="@id/cardImage" />
+
+        <!-- Giá tiền: Màu cam nổi bật -->
+        <TextView
+            android:id="@+id/tvProductPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="500.000đ"
+            android:textColor="#E53935"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/tvProductName"
+            app:layout_constraintTop_toBottomOf="@id/tvProductName" />
+
+        <!-- THANH SỐ LƯỢNG (Giữ nguyên cấu trúc bạn chọn) -->
+        <LinearLayout
+            android:id="@+id/layoutQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginTop="12dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="@id/tvProductPrice"
+            app:layout_constraintTop_toBottomOf="@id/tvProductPrice">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnMinus"
+                android:layout_width="32dp"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackground"
+                android:text="-"
+                android:textSize="18sp"
+                style="?android:attr/borderlessButtonStyle" />
+
+            <TextView
+                android:id="@+id/tvQuantity"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="1"
+                android:textColor="#000"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnPlus"
+                android:layout_width="32dp"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackground"
+                android:text="+"
+                android:textSize="18sp"
+                style="?android:attr/borderlessButtonStyle" />
+        </LinearLayout>
+
+        <!-- ICON THÙNG RÁC (Giữ nguyên vị trí bên phải số lượng) -->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
